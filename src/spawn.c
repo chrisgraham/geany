@@ -1219,7 +1219,7 @@ gboolean spawn_with_callbacks(const gchar *working_directory, const gchar *comma
 				{
 					sc->cb.read = stdout_cb;
 					sc->max_length = stdout_max_length ? stdout_max_length :
-						line_buffered ? 24576 : DEFAULT_IO_LENGTH;
+						line_buffered ? 1024 : DEFAULT_IO_LENGTH; // Changed by ChrisG for https://github.com/geany/geany/issues/2247
 				}
 				else
 				{
