@@ -1207,13 +1207,13 @@ static void add_recent_file(const gchar *utf8_filename, GeanyRecentFiles *grf,
 
 		if (grf->type == RECENT_FILE_FILE && rdata)
 		{
-			GtkRecentManager *manager = gtk_recent_manager_get_default();
+			/*GtkRecentManager *manager = gtk_recent_manager_get_default();     ChrisG Disabled this because it is annoying
 			gchar *uri = g_filename_to_uri(utf8_filename, NULL, NULL);
 			if (uri != NULL)
 			{
 				gtk_recent_manager_add_full(manager, uri, rdata);
 				g_free(uri);
-			}
+			}*/
 		}
 
 		g_queue_push_head(grf->recent_queue, g_strdup(utf8_filename));
