@@ -1079,27 +1079,10 @@ void search_show_find_in_files_dialog_full(const gchar *text, const gchar *dir)
 
 	entry = gtk_bin_get_child(GTK_BIN(fif_dlg.dir_combo));
 	if (!EMPTY(dir))
-		cur_dir = g_strdup(dir);	/* custom directory argument passed */
+        cur_dir = g_strdup(dir);        /* custom directory argument passed */
 	else
 	{
-		if (search_prefs.use_current_file_dir)
-		{
-			static gchar *last_cur_dir = NULL;
-			static GeanyDocument *last_doc = NULL;
-
-			/* Only set the directory entry once for the current document */
-			cur_dir = utils_get_current_file_dir_utf8();
-			if (doc == last_doc && cur_dir && utils_str_equal(cur_dir, last_cur_dir))
-			{
-				/* in case the user now wants the current directory, add it to history */
-				ui_combo_box_add_to_history(GTK_COMBO_BOX_TEXT(fif_dlg.dir_combo), cur_dir, 0);
-				SETPTR(cur_dir, NULL);
-			}
-			else
-				SETPTR(last_cur_dir, g_strdup(cur_dir));
-
-			last_doc = doc;
-		}
+		cur_dir = project_get_base_path(); // ChrisG changed based on https://github.com/geany/geany/pull/454/files
 		if (!cur_dir && EMPTY(gtk_entry_get_text(GTK_ENTRY(entry))))
 		{
 			/* use default_open_path if no directory could be determined
