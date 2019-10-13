@@ -1543,10 +1543,15 @@ static GString *get_grep_options(void)
 	if (settings.fif_recursive)
 		g_string_append_c(gstr, 'r');
 
-	if (!settings.fif_regexp)
+	if (!settings.fif_regexp) { /* text search */
 		g_string_append_c(gstr, 'F');
-	else
-		g_string_append_c(gstr, 'E');
+	} else { /* regexp search */
+		if (strstr(tool_prefs.grep_cmd, "pcregrep") == NULL) {
+			g_string_append_c(gstr, 'E'); /* E for grep to enable extended regexps */
+		} else {
+			g_string_append_c(gstr, 'M'); /* M for pcregrep to enable multi-line searching, using \n literal */
+		}
+	}
 
 	g_strstrip(settings.fif_files);
 	if (settings.fif_files_mode != FILES_MODE_ALL && *settings.fif_files)
