@@ -1546,7 +1546,7 @@ static GString *get_grep_options(void)
 	if (!settings.fif_regexp) { /* text search */
 		g_string_append_c(gstr, 'F');
 	} else { /* regexp search */
-		if (strstr(tool_prefs.grep_cmd, "pcregrep") == NULL) {
+		if (strstr(tool_prefs.grep_cmd, "pcre") == NULL) {
 			g_string_append_c(gstr, 'E'); /* E for grep to enable extended regexps */
 		} else {
 			g_string_append_c(gstr, 'M'); /* M for pcregrep to enable multi-line searching, using \n literal */
