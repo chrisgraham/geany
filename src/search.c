@@ -1706,6 +1706,7 @@ search_find_in_files(const gchar *utf8_search_text, const gchar *utf8_dir, const
 			command_line, argv_escaped_together->str, utf8_dir);
  		msgwin_msg_add_string(COLOR_BLUE, -1, NULL, utf8_str);
 		g_free(utf8_str);
+		g_string_free(argv_escaped_together, TRUE);
  		ret = TRUE;
 	}
 	else
