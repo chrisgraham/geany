@@ -45,6 +45,8 @@ gboolean spawn_kill_process(GPid pid, GError **error);
 gboolean spawn_async(const gchar *working_directory, const gchar *command_line, gchar **argv,
 	gchar **envp, GPid *child_pid, GError **error);
 
+void spawn_append_argument(GString *command, const char *text);
+
 /** Flags passed to @c spawn_with_callbacks(), which see. */
 typedef enum
 {

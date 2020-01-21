@@ -1694,11 +1694,16 @@ search_find_in_files(const gchar *utf8_search_text, const gchar *utf8_dir, const
 		NULL, &error))
  	{
 		gchar *utf8_str;
+		GString *argv_escaped_together = g_string_new("");
+		gchar **argv_tmp = argv;
+
+		while (argv_tmp && *argv_tmp)
+			spawn_append_argument(argv_escaped_together, *argv_tmp++);
 
  		ui_progress_bar_start(_("Searching..."));
  		msgwin_set_messages_dir(dir);
-		utf8_str = g_strdup_printf(_("%s %s -- %s (in directory: %s)"),
-			tool_prefs.grep_cmd, opts, utf8_search_text, utf8_dir);
+		utf8_str = g_strdup_printf(_("%s %s (in directory: %s)"),
+			command_line, argv_escaped_together->str, utf8_dir);
  		msgwin_msg_add_string(COLOR_BLUE, -1, NULL, utf8_str);
 		g_free(utf8_str);
  		ret = TRUE;

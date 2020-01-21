@@ -52,8 +52,9 @@
 
 #include "spawn.h"
 
+#include <ctype.h>    /* isspace() */
+
 #ifdef G_OS_WIN32
-# include <ctype.h>    /* isspace() */
 # include <fcntl.h>    /* _O_RDONLY, _O_WRONLY */
 # include <io.h>       /* _open_osfhandle, _close */
 # include <windows.h>
@@ -436,8 +437,9 @@ leave:
 	return failure;
 }
 
+#endif /* G_OS_WIN32 */
 
-static void spawn_append_argument(GString *command, const char *text)
+void spawn_append_argument(GString *command, const char *text)
 {
 	const char *s;
 
@@ -487,7 +489,6 @@ static void spawn_append_argument(GString *command, const char *text)
 		g_string_append_c(command, '"');
 	}
 }
-#endif /* G_OS_WIN32 */
 
 
 /*
